@@ -36,11 +36,13 @@
           <slot name="system-message-body" :message="message.data">
           </slot>
       </SystemMessage>
+      <ButtonMessage v-else-if="message.type === 'button'" :message="message" :data="message.data" />
     </div>
   </div>
 </template>
 
 <script>
+import ButtonMessage from './ButtonMessage.vue'
 import TextMessage from './messages/TextMessage.vue'
 import FileMessage from './messages/FileMessage.vue'
 import EmojiMessage from './messages/EmojiMessage.vue'
@@ -56,6 +58,7 @@ export default {
     }
   },
   components: {
+    ButtonMessage,
     TextMessage,
     FileMessage,
     EmojiMessage,
