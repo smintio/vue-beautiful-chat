@@ -25,6 +25,7 @@
       :showTypingIndicator="showTypingIndicator"
       :colors="colors"
       :alwaysScrollToBottom="alwaysScrollToBottom"
+      :onButtonClick="onButtonClick"
       :messageStyling="messageStyling"
       @scrollToTop="$emit('scrollToTop')"
       @remove="$emit('remove', $event)"
@@ -102,6 +103,10 @@ export default {
       required: true
     },
     onClose: {
+      type: Function,
+      required: true
+    },
+    onButtonClick: {
       type: Function,
       required: true
     },

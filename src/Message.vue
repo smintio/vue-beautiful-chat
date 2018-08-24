@@ -36,7 +36,7 @@
           <slot name="system-message-body" :message="message.data">
           </slot>
       </SystemMessage>
-      <ButtonMessage v-else-if="message.type === 'button'" :message="message" :data="message.data" />
+      <ButtonMessage v-else-if="message.type === 'button'" :message="message" :data="message.data" :onButtonClick="onButtonClick" />
     </div>
   </div>
 </template>
@@ -72,6 +72,10 @@ export default {
     },
     colors: {
       type: Object,
+      required: true
+    },
+    onButtonClick: {
+      type: Function,
       required: true
     },
     messageStyling: {
