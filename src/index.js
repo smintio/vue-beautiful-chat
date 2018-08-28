@@ -1,5 +1,6 @@
 import Launcher from './Launcher.vue'
 import VTooltip from 'v-tooltip'
+import linkify from 'vue-linkify'
 
 import emojiData  from './emojiData'
 export { emojiData }
@@ -32,6 +33,7 @@ const Plugin = {
      */
     Vue.component(this.componentName, Launcher)
     Vue.use(VTooltip)
+    Vue.directive('linkified', linkify)
   }
 }
 

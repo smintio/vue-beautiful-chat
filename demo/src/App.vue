@@ -14,6 +14,7 @@
       :newMessagesCount="newMessagesCount"
       :onMessageWasSent="onMessageWasSent"
       :open="openChat"
+      :onButtonClick="onButtonClick"
       :participants="participants"
       :showCloseButton="true"
       :showLauncher="true"
@@ -167,6 +168,9 @@ export default {
     },
     closeChat() {
       this.isChatOpen = false
+    },
+    onButtonClick() {
+
     },
     setColor(color) {
       this.colors = this.availableColors[color]
