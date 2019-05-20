@@ -115,6 +115,7 @@ export default {
   data () {
     return {
       file: null,
+      emoji: null,
       inputActive: false,
       store
     }
@@ -209,11 +210,18 @@ export default {
       }
     },
     _handleEmojiPicked (emoji) {
-      this._checkSubmitSuccess(this.onSubmit({
-        author: 'me',
-        type: 'emoji',
-        data: { emoji }
-      }))
+
+      const text = this.$refs.userInput.textContent
+
+      if (!text || !text.length) {
+        this.$refs.userInput.textContent = emoji
+        this.emoji = emoji
+
+      } else {
+        const newText = text+emoji
+        this.$refs.userInput.textContent = newText
+      }
+
     },
     _handleFileSubmit (file) {
       this.file = file
