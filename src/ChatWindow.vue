@@ -53,6 +53,7 @@
       v-if="!showUserList"
       :showEmoji="showEmoji"
       :onSubmit="onUserInputSubmit"
+      :acceptMime="acceptMime"
       :suggestions="getSuggestions()"
       :showFile="showFile"
       :placeholder="placeholder"
@@ -76,6 +77,10 @@ export default {
     UserList
   },
   props: {
+    acceptMime: {
+      type: String,
+      required: false
+    },
     showEmoji: {
       type: Boolean,
       default: false

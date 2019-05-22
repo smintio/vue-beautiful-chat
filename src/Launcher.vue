@@ -17,6 +17,7 @@
       :titleImageUrl="titleImageUrl"
       :isOpen="isOpen"
       :onClose="close"
+      :acceptMime="acceptMime"
       :showEmoji="showEmoji"
       :showFile="showFile"
       :placeholder="placeholder"
@@ -79,6 +80,9 @@ export default {
             },
         }
       }
+    },
+    acceptMime: {
+      type: String
     },
     showEmoji: {
       type: Boolean,

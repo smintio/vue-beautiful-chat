@@ -27,7 +27,7 @@
           <EmojiIcon :onEmojiPicked="_handleEmojiPicked" :color="colors.userInput.text" />
         </div>
         <div v-if="showFile && !isEditing" class="sc-user-input--button">
-          <FileIcons :onChange="_handleFileSubmit" :color="colors.userInput.text" />
+          <FileIcons :onChange="_handleFileSubmit" :color="colors.userInput.text" :acceptMime="acceptMime" />
         </div>
         <div v-if="isEditing" class="sc-user-input--button">
           <user-input-button @click.native.prevent="_editFinish" :color="colors.userInput.text" tooltip="cancel">
@@ -86,6 +86,9 @@ export default {
           },
         }
       }
+    },
+    acceptMime: {
+      type: String
     },
     showEmoji: {
       type: Boolean,
