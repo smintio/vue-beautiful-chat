@@ -1,6 +1,9 @@
 import Vue                                  from 'vue';
 import { PluginObject, PluginFunction }     from 'vue';
 
+import emojiData                            from './emojiData';
+export { emojiData };
+
 // augment vue for typescript
 declare module 'vue/types/vue' {
     export interface Vue {

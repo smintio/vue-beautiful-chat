@@ -1,6 +1,9 @@
 import Launcher from './Launcher.vue'
 import VTooltip from 'v-tooltip'
 
+import emojiData  from './emojiData'
+export { emojiData }
+
 const defaultComponentName = 'beautiful-chat'
 
 const Plugin = {
