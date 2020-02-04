@@ -82,16 +82,33 @@ export default {
   },
   methods: {
     sentColorsStyle() {
-      return {
-        color: this.colors.sentMessage.text,
-        backgroundColor: this.colors.sentMessage.bg
+      let style = {};
+      // color is at least 3 characters wide, like '#ff'
+      if (this.colors.sentMessage && this.colors.sentMessage.text
+        && ("" + this.colors.sentMessage.text).match(/^(#[0-9a-f][0-9a-f][0-9a-f]{1,4}|rgba?\(.*)/i)
+      ) {
+        style.color = this.colors.sentMessage.text;
       }
+      if (this.colors.sentMessage && this.colors.sentMessage.bg
+        && ("" + this.colors.sentMessage.bg).match(/^(#[0-9a-f][0-9a-f][0-9a-f]{1,4}|rgba?\(.*)/i)
+      ) {
+        style.backgroundColor = this.colors.sentMessage.bg;
+      }
+      return style || undefined;
     },
     receivedColorsStyle() {
-      return {
-        color: this.colors.receivedMessage.text,
-        backgroundColor: this.colors.receivedMessage.bg
+      let style = {};
+      if (this.colors.receivedMessage && this.colors.receivedMessage.text
+        && ("" + this.colors.receivedMessage.text).match(/^(#[0-9a-f][0-9a-f][0-9a-f]{1,4}|rgba?\(.*)/i)
+      ) {
+        style.color = this.colors.sentMessage.text;
       }
+      if (this.colors.receivedMessage && this.colors.receivedMessage.bg
+        && ("" + this.colors.receivedMessage.bg).match(/^(#[0-9a-f][0-9a-f][0-9a-f]{1,4}|rgba?\(.*)/i)
+      ) {
+        style.backgroundColor = this.colors.receivedMessage.bg;
+      }
+      return style || undefined;
     },
     determineMessageColors() {
       return this.message.author === 'me' ? this.sentColorsStyle() : this.receivedColorsStyle()
