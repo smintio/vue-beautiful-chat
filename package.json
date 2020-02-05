@@ -67,5 +67,10 @@
     "imagemin": "^6.1.0",
     "msgdown": "^1.0.2",
     "v-tooltip": "^2.0.1"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
   }
 }
