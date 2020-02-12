@@ -119,7 +119,7 @@ export default {
       return this.user && this.user.name;
     },
     chatImageUrl(){
-      return (this.user && this.user.imageUrl) || this.chatIcon;
+      return (this.user && this.user.imageUrl) || chatIcon;
     }
   }
 }
