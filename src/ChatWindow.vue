@@ -45,6 +45,9 @@
         <slot name="text-message-toolbox" :message="scopedProps.message" :me="scopedProps.me">
         </slot>
       </template>
+      <template v-slot:no-messages>
+        <slot name="no-messages"></slot>
+      </template>
     </MessageList>
     <UserInput
       v-if="!showUserList"

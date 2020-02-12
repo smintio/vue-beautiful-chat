@@ -15,6 +15,7 @@
       </template>
     </Message>
     <Message v-show="showTypingIndicator !== ''" :message="{author: showTypingIndicator, type: 'typing'}" :user="{}" :colors="colors" :messageStyling="messageStyling" />
+    <slot name="no-messages" v-if="!messages.length"></slot>
   </div>
 </template>
 <script>
