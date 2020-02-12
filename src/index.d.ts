@@ -44,6 +44,7 @@ interface ChatMessageBase {
     author?: string;
     type: ChatMessageTypes;
     isEdited?: boolean;
+    disableEditing?: boolean;
     suggestions?: string[];
     meta?: string;
 

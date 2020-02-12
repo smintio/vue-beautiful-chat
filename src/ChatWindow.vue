@@ -46,11 +46,15 @@
         <slot name="text-message-toolbox" :message="scopedProps.message" :me="scopedProps.me">
         </slot>
       </template>
+      <template v-slot:no-messages>
+        <slot name="no-messages"></slot>
+      </template>
     </MessageList>
     <UserInput
       v-if="!showUserList"
       :showEmoji="showEmoji"
       :onSubmit="onUserInputSubmit"
+      :acceptMime="acceptMime"
       :suggestions="getSuggestions()"
       :showFile="showFile"
       :placeholder="placeholder"
@@ -74,6 +78,10 @@ export default {
     UserList
   },
   props: {
+    acceptMime: {
+      type: String,
+      required: false
+    },
     showEmoji: {
       type: Boolean,
       default: false

@@ -18,6 +18,7 @@
       :isOpen="isOpen"
       :onClose="close"
       :onButtonClick="onButtonClick"
+      :acceptMime="acceptMime"
       :showEmoji="showEmoji"
       :showFile="showFile"
       :placeholder="placeholder"
@@ -51,6 +52,9 @@
         <slot name="text-message-toolbox" :message="scopedProps.message" :me="scopedProps.me">
         </slot>
       </template>
+      <template v-slot:no-messages>
+        <slot name="no-messages"></slot>
+      </template>
     </ChatWindow>
   </div>
 </template>
@@ -77,6 +81,9 @@ export default {
             },
         }
       }
+    },
+    acceptMime: {
+      type: String
     },
     showEmoji: {
       type: Boolean,

@@ -27,7 +27,7 @@
           <EmojiIcon :onEmojiPicked="_handleEmojiPicked" :color="colors.userInput.text" />
         </div>
         <div v-if="showFile && !isEditing" class="sc-user-input--button">
-          <FileIcons :onChange="_handleFileSubmit" :color="colors.userInput.text" />
+          <FileIcons :onChange="_handleFileSubmit" :color="colors.userInput.text" :acceptMime="acceptMime" />
         </div>
         <div v-if="isEditing" class="sc-user-input--button">
           <user-input-button @click.native.prevent="_editFinish" :color="colors.userInput.text" tooltip="cancel">
@@ -87,6 +87,9 @@ export default {
         }
       }
     },
+    acceptMime: {
+      type: String
+    },
     showEmoji: {
       type: Boolean,
       default: () => false
@@ -115,6 +118,7 @@ export default {
   data () {
     return {
       file: null,
+      emoji: null,
       inputActive: false,
       store
     }
@@ -152,6 +156,20 @@ export default {
     _submitSuggestion(suggestion) {
       this.onSubmit({author: 'me', type: 'text', data: { text: suggestion }})
     },
+    _checkSubmitSuccess (success) {
+      if (Promise !== undefined) {
+        Promise.resolve(success).then(function (wasSuccessful) {
+          if (wasSuccessful === undefined || wasSuccessful) {
+            this.file = null
+            this.$refs.userInput.innerHTML = '';
+          }
+        }.bind(this));
+
+      } else {
+        this.file = null
+        this.$refs.userInput.innerHTML = '';
+      }
+    },
     _submitText (event) {
       const text = this.$refs.userInput.textContent
       const file = this.file
@@ -159,31 +177,27 @@ export default {
         this._submitTextWhenFile(event, text, file)
       } else {
         if (text && text.length > 0) {
-          this.onSubmit({
+          this._checkSubmitSuccess(this.onSubmit({
             author: 'me',
             type: 'text',
             data: { text }
-          });
-          this.$refs.userInput.innerHTML = ''
+          }));
         }
       }
     },
     _submitTextWhenFile(event, text, file) {
-      if (text && text.length > 0) {  
-        this.onSubmit({
+      if (text && text.length > 0) {
+        this._checkSubmitSuccess(this.onSubmit({
           author: 'me',
           type: 'file',
           data: { text, file }
-        })
-        this.file = null
-        this.$refs.userInput.innerHTML = ''
+        }))
       } else {
-        this.onSubmit({
+        this._checkSubmitSuccess(this.onSubmit({
           author: 'me',
           type: 'file',
           data: { file }
-        })
-        this.file = null
+        }))
       }
     },
     _editText (event) {
@@ -199,11 +213,18 @@ export default {
       }
     },
     _handleEmojiPicked (emoji) {
-      this.onSubmit({
-        author: 'me',
-        type: 'emoji',
-        data: { emoji }
-      })
+
+      const text = this.$refs.userInput.textContent
+
+      if (!text || !text.length) {
+        this.$refs.userInput.textContent = emoji
+        this.emoji = emoji
+
+      } else {
+        const newText = text+emoji
+        this.$refs.userInput.textContent = newText
+      }
+
     },
     _handleFileSubmit (file) {
       this.file = file
