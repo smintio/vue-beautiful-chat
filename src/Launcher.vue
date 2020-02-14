@@ -16,6 +16,7 @@
       :title="chatWindowTitle"
       :titleImageUrl="titleImageUrl"
       :isOpen="isOpen"
+      :isLoadingMessages="isLoadingMessages"
       :onClose="close"
       :showEmoji="showEmoji"
       :showFile="showFile"
@@ -53,6 +54,9 @@
       <template v-slot:no-messages>
         <slot name="no-messages"></slot>
       </template>
+      <template v-slot:messages-loading-indicator>
+        <slot name="messages-loading-indicator"></slot>
+      </template>
     </ChatWindow>
   </div>
 </template>
@@ -87,6 +91,10 @@ export default {
     isOpen: {
       type: Boolean,
       required: true
+    },
+    isLoadingMessages: {
+      type: Boolean,
+      default: () => false
     },
     open: {
       type: Function,

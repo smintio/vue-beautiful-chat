@@ -21,6 +21,7 @@
     <MessageList
       v-if="!showUserList"
       :messages="messages"
+      :isLoadingMessages="isLoadingMessages"
       :participants="participants"
       :showTypingIndicator="showTypingIndicator"
       :colors="colors"
@@ -47,6 +48,9 @@
       </template>
       <template v-slot:no-messages>
         <slot name="no-messages"></slot>
+      </template>
+      <template v-slot:messages-loading-indicator>
+        <slot name="messages-loading-indicator"></slot>
       </template>
     </MessageList>
     <UserInput
@@ -113,6 +117,10 @@ export default {
       default: () => []
     },
     isOpen: {
+      type: Boolean,
+      default: () => false
+    },
+    isLoadingMessages: {
       type: Boolean,
       default: () => false
     },

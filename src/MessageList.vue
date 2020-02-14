@@ -14,16 +14,29 @@
         </slot>
       </template>
     </Message>
-    <Message v-show="showTypingIndicator !== ''" :message="{author: showTypingIndicator, type: 'typing'}" :user="{}" :colors="colors" :messageStyling="messageStyling" />
-    <slot name="no-messages" v-if="!messages.length"></slot>
+    <slot name="messages-loading-indicator" v-if="isLoadingMessages">
+      <div class="sc-message--loading-spinner">
+        <loading :active.sync="isLoadingMessages"
+                 :can-cancel="false"
+                 :is-full-page="false"></loading>
+      </div>
+    </slot>
+    <Message v-show="!isLoadingMessages && showTypingIndicator !== ''" :message="{author: showTypingIndicator, type: 'typing'}" :user="{}" :colors="colors" :messageStyling="messageStyling" />
+    <slot name="no-messages" v-if="!isLoadingMessages && (!messages || !messages.length)"></slot>
   </div>
 </template>
 <script>
 import Message from './Message.vue'
 import chatIcon from './assets/chat-icon.svg'
 
+// @ts-ignore
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
+
+
 export default {
   components: {
+    Loading,
     Message
   },
   data: function data() {
@@ -42,6 +55,10 @@ export default {
     messages: {
       type: Array,
       required: true
+    },
+    isLoadingMessages: {
+      type: Boolean,
+      default: () => false
     },
     showTypingIndicator: {
       type: String,
