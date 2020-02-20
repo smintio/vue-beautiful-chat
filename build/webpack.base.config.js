@@ -29,7 +29,11 @@ module.exports = {
           'url-loader?limit=10000',
           'img-loader'
         ]
-      }
+      },
+	  {
+	    test: /\.css$/,
+		loader: 'css-loader'
+	  }
     ]
   },
   // devtool: '#source-map',
